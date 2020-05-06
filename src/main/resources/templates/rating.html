@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Rating</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+html {
+    font-family: Geneva, Arial, Helvetica, sans-serif;
+}
+
+body {
+    border-width: 0;
+    margin: 0;
+    background-color: #1c202a;
+}
+
+.game-site-header {
+    width: 100%;
+    position: fixed;
+    z-index: 999;
+    background: #313e4b;
+    border-bottom-style: solid;
+    border-bottom-width: 3px;
+    border-bottom-color: #232b34;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+/*====================MENU=====================*/
+
+.ul-info {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #313e4b;
+}
+
+.ul-info li {
+    float: left;
+}
+
+.ul-info li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/*=================Game Component Styles=============*/
+select {
+    font-size: 16px;
+    height: 34px;
+}
+
+button {
+    border-width: 3px;
+    border-style: outset;
+    border-radius: 8px;
+    border-color: #475966 #5e7587 #5e7587 #475966;
+    background: #313e4b;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 5px;
+    text-decoration: none;
+    outline: none;
+    border-image: initial;
+    padding: 10px 10px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    top: 0;
+    font: 16px "game-font";
+    text-align: center;
+    transition: all 0.1s cubic-bezier(0.25, 0.25, 0.75, 0.75);
+    -webkit-box-shadow: 0 1px 0 0 rgba(138, 138, 138, 0.21) inset, 0 -1px 1px 0 rgba(137, 137, 137, 0.21) inset, 0 7px 0 0 rgba(98, 98, 98, 0.2), 0 8px 3px 0 rgba(0, 0, 0, 0.35);
+}
+
+button:hover {
+    border-radius: 8px;
+    color: rgb(255, 228, 42);
+}
+
+button:active {
+    top: 6px;
+    color: rgb(159, 206, 255);
+    -webkit-box-shadow: 0 1px 0 0 rgba(255,255,255,0.298039) inset, 0 -1px 1px 0 rgba(255,255,255,0.14902) inset;
+    transition: all 50ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
+}
+
+
+
+.levels-header{
+    margin-top: -55px;
+    text-align: center;
+    text-shadow: 2px 0 0 #bfbfbf, -2px 0 0 #BFBFBF, 0 2px 0 #BFBFBF, 0 -2px 0 #BFBFBF, 1px 1px #BFBFBF, -1px -1px 0 #BFBFBF, 1px -1px 0 #BFBFBF, -1px 1px 0 #BFBFBF;
+}
+
+.container-levels {
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.7) inset;
+    border-width: 3px;
+    border-style: inset;
+    border-radius: 10px;
+    border-color: #4d616f #556774 #556774 #4d616f;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 45px;
+    margin: 20px;
+    overflow-y: scroll;
+    padding: 80px
+}
+
+/*==================ROOM TABLE=============*/
+.level-table {
+    border-collapse: collapse;
+    width: 100%;
+    color: #bd9831;
+    text-align: center;
+    font-size:16px;
+}
+
+.level-table td, .info-table th {
+    border: 1px solid rgba(221, 2, 2, 0.1);;
+    padding: 8px;
+}
+
+.level-table tr:nth-child(even){background-color: rgba(100, 0, 0, 0.3);}
+
+.level-table tr:hover {
+    background: #4d616f;
+}
+
+.level-table tr:nth-child(even):hover {
+    background: #4d616f;
+}
+
+.level-table th {
+    font-family:Helvetica;
+    font-size:25px;
+    text-align: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #7d0012;
+    color: white;
+}
+.level-table tr {
+    font-family:Helvetica;
+    font-size:20px;
+}
+
+		</style>
+    </head>
+    <body>
+        <div class="game-site-header">
+            <ul class="ul-info">
+                <li><a th:href="@{/levels}">Levels</a></li>
+                <li><a th:href="@{/lectures}">Lectures</a></li>
+                <li><a th:href="@{/progress}">Progress</a></li>
+				<li><a th:href="@{/rating}">Rating</a></li>
+                <li style="float: right"> <a th:href="@{/login/login}">Logout</a></li>
+            </ul>
+        </div>
+
+        <div class="container-levels">
+            <h1 class='levels-header'>Rating</h1>
+            <table class='level-table'>
+                <thead>
+                    <tr>
+                        <th width='100px'>Place</th>
+                        <th>Gamer</th>
+                        <th>Coins</th>
+                    </tr>
+                </thead>
+                <tbody id="levelsTableBody">
+                <tr th:each="rating : ${ratings}">
+                    <td th:text="${rating.place}"/>
+                    <td th:text="${rating.gamerUsername}"/>
+                    <td th:text="${rating.coins}"/>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+<html>
